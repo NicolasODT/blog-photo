@@ -29,7 +29,7 @@ if (isset($_GET['search'])) {
     <form action="" method="get">
         <label for="search">Recherche</label>
         <input type="text" name="search" id="search">
-        <button type="submit">Rechercher</button>
+        <button>Rechercher</button>
     </form>
 
     <table>
@@ -57,7 +57,7 @@ if (isset($_GET['search'])) {
                                 <option value="editeur" <?= $utilisateur['role'] == 'editeur' ? 'selected' : '' ?>>Editeur</option>
                                 <option value="admin" <?= $utilisateur['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
                             </select>
-                            <button type="submit">Modifier le rôle</button>
+                            <button>Modifier le rôle</button>
                         </form>
                         <form action="desactiver_utilisateur.php" method="post">
                             <input type="hidden" name="id" value="<?= $utilisateur['id'] ?>">
