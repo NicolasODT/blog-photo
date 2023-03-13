@@ -119,26 +119,6 @@ form button {
   border-top: 2px solid #d58936;
 }
 
-/* panel */
-
-.panel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2%;
-  height: 65px;
-  width: 70%;
-  font-size: 16px;
-  border: 3px solid #a44200;
-  border-radius: 10px;
-  margin: auto;
-}
-
-.panel input {
-  width: 25px;
-  height: 25px;
-}
-
 footer {
   margin-top: 100px;
   background-color: #a44200;
