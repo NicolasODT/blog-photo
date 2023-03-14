@@ -1,4 +1,4 @@
--- Active: 1678729030280@@127.0.0.1@3306@blogphoto
+-- Active: 1678729030280@@127.0.0.1@3306@focale
 
 CREATE TABLE
     Utilisateur (
@@ -13,7 +13,7 @@ CREATE TABLE
         ) NOT NULL DEFAULT 'utilisateur',
         ville VARCHAR(255) NOT NULL,
         pays VARCHAR(255),
-        date_creation DATETIME NOT NULL
+        date_creation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
 
 ALTER TABLE Utilisateur
@@ -27,7 +27,7 @@ CREATE TABLE
         contenu TEXT NOT NULL,
         slug VARCHAR(255),
         image VARCHAR(255),
-        date_creation DATETIME NOT NULL,
+        date_creation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         id_utilisateur INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id)
     );
@@ -36,7 +36,7 @@ CREATE TABLE
     Commentaire (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         message TEXT NOT NULL,
-        date_creation DATETIME NOT NULL,
+        date_creation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         id_article INT(11) UNSIGNED NOT NULL,
         id_utilisateur INT(11) UNSIGNED NOT NULL,
         FOREIGN KEY (id_article) REFERENCES Article(id),
