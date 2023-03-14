@@ -20,7 +20,7 @@
                     <li><a href="./panel.php">Panel</a></li>
                 <?php }
                 if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "editeur") { ?>
-                    <li><a href="./add-article.php">Ajouter un article</a></li>
+                    <li><a href="./add_article.php">Ajouter un article</a></li>
                 <?php }
                 ?>
                 <li><a href="./profil.php">Profil</a></li>
