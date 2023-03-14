@@ -2,10 +2,9 @@
 session_start();
 require_once 'connect.php';
 
-// if ($_SESSION["role"] != "admin") { 
-//     header("Location: index.php"); 
-//     exit; 
-// }
+if ($_SESSION["role"] != "admin") {
+    header("Location: index.php");
+}
 
 $id = $_POST['id'];
 $role = $_POST['role'];
@@ -19,4 +18,3 @@ $stmt->execute();
 
 header("Location: panel.php");
 exit;
-?>

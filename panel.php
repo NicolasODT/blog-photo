@@ -2,6 +2,11 @@
 session_start();
 require_once 'connect.php';
 
+
+if ($_SESSION["role"] != "admin") {
+    header("Location: index.php");
+}
+
 // Récupère la liste des utilisateurs
 $query = "SELECT id, pseudo, email, role, actif FROM Utilisateur";
 $stmt = $bdd->query($query);
@@ -13,16 +18,10 @@ if (isset($_GET['search'])) {
     $stmt = $bdd->query($query);
     $utilisateurs = $stmt->fetchAll();
 }
+require_once 'header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des utilisateurs</title>
-</head>
+
 <body>
     <h1>Liste des utilisateurs</h1>
 
@@ -71,4 +70,5 @@ if (isset($_GET['search'])) {
     </table>
 
 </body>
+
 </html>

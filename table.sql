@@ -16,6 +16,10 @@ CREATE TABLE
         date_creation DATETIME NOT NULL
     );
 
+ALTER TABLE Utilisateur
+ADD
+    COLUMN actif BOOLEAN NOT NULL DEFAULT TRUE;
+
 CREATE TABLE
     Article (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -23,7 +27,9 @@ CREATE TABLE
         contenu TEXT NOT NULL,
         slug VARCHAR(255),
         image VARCHAR(255),
-        date_creation DATETIME NOT NULL
+        date_creation DATETIME NOT NULL,
+        id_utilisateur INT(11) UNSIGNED NOT NULL,
+        FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id)
     );
 
 CREATE TABLE
