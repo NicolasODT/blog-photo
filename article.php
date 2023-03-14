@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 if (isset($_GET["slug"])) {
     require_once "connect.php";
 
@@ -16,9 +15,8 @@ if (isset($_GET["slug"])) {
         require_once 'header.php';
 ?>
 
-            <main class="main-article">
+<main class="main-article">
     <img class="img-article" src="<?= $article["image"] ?>" alt="<?= $article["titre"] ?>">
-
     <h2><?= $article["titre"] ?></h2>
     <p><?= $article["contenu"] ?></p>
 
@@ -55,12 +53,14 @@ if (isset($_GET["slug"])) {
         }
         ?>
     </section>
+
+    <?php if (isset($_SESSION["id"]) && ($_SESSION["role"] == "editeur" || $_SESSION["role"] == "admin")) { ?>
+        <div class="edit-link">
+        <a href="edit-article.php?id_article=<?= $article['id'] ?>">Editer</a>
+        </div>
+    <?php } ?>
 </main>
 
-            <footer></footer>
-        </body>
-
-        </html>
 <?php
     } else {
         echo "L'article n'existe pas.";
