@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'connect.php';
+require_once '../includes/connect.php';
 
 if (isset($_POST['message']) && isset($_POST['id_article'])) {
-    $message = $_POST['message'];
-    $id_article = $_POST['id_article'];
+    $message = htmlspecialchars($_POST['message']);
+    $id_article = htmlspecialchars($_POST['id_article']);
 
     if (isset($_SESSION['id']) && (($_SESSION['role'] == 'utilisateur') || ($_SESSION['role'] == 'editeur') || ($_SESSION['role'] == 'admin'))) {
         $user_id = $_SESSION['id'];
@@ -15,7 +15,7 @@ if (isset($_POST['message']) && isset($_POST['id_article'])) {
         $query->bindParam(":user_id", $user_id);
         $query->execute();
 
-        header("Location: article.php?slug=" . $_GET["slug"]);
+        header("Location: ../../templates/article.php?slug=" . $_GET["slug"]);
         exit();
     } else {
         echo "Vous devez être connecté et avoir un rôle autorisé pour ajouter un commentaire.";
@@ -23,4 +23,3 @@ if (isset($_POST['message']) && isset($_POST['id_article'])) {
 } else {
     echo "Une erreur s'est produite lors de l'ajout du commentaire.";
 }
-?>

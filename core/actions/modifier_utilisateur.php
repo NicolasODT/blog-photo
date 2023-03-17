@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'connect.php';
+require_once '../includes/connect.php';
 
 if ($_SESSION["role"] != "admin") {
-    header("Location: index.php");
+    header("Location: ../../index.php");
 }
 
 $id = $_POST['id'];
@@ -16,5 +16,5 @@ $stmt->bindParam(':id', $id);
 $stmt->execute();
 
 
-header("Location: panel.php");
+header("Location: ../../templates/panel.php");
 exit;
