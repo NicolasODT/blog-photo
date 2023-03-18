@@ -11,7 +11,7 @@ require_once './core/includes/header.php';
         <h1>FOCALE CREATIVE</h1>
     </div>
     <form action="" method="get">
-        <input type="search" name="search" id="">
+        <input type="search" name="search" id="" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
         <button>Recherche <i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
 

@@ -10,6 +10,16 @@ if (
 
     if ($_POST["password"] == $_POST["password2"]) {
 
+        if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+            echo "<p>Adresse email invalide</p>";
+            exit();
+        }
+
+        if (strlen($_POST["password"]) < 8) {
+            echo "<p>Le mot de passe doit contenir au moins 8 caractères</p>";
+            exit();
+        }
+
 
         $email = htmlspecialchars(trim($_POST["email"]));
         $password = htmlspecialchars(trim($_POST["password"]));

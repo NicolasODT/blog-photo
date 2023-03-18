@@ -10,9 +10,10 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         $query->execute();
         $article = $query->fetch();
         if ($article) {
-            $titre = $article['titre'];
-            $contenu = $article['contenu'];
-            $slug = $article['slug'];
+            $titre = htmlspecialchars($article['titre']);
+            $contenu = htmlspecialchars($article['contenu']);
+            $slug = htmlspecialchars($article['slug']);
+            $image = htmlspecialchars($article['image']);
         } else {
             echo "Cet article n'existe pas.";
             exit();
@@ -29,7 +30,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
 <?php require_once '../includes/header.php'; ?>
 <main class="main-form">
     <h1>Editer l'article</h1>
-    <form method="post" action="update_article.php">
+    <form method="post" action="update_article.php" enctype="multipart/form-data" class="form-add-article">
         <input type="hidden" name="id" value="<?= $id ?>">
         <div>
             <label for="titre">Titre :</label>
@@ -42,6 +43,11 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         <div>
             <label for="slug">Slug :</label>
             <input type="text" name="slug" id="slug" value="<?= $slug ?>">
+        </div>
+        <div>
+            <label for="image">Image :</label>
+            <input type="file" name="image" id="image" accept="image/*">
+            <img src="<?= $image ?>" alt="Image actuelle" style="width: 150px; height: auto;">
         </div>
         <button>Enregistrer</button>
     </form>

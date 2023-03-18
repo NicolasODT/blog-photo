@@ -201,6 +201,10 @@ button {
 .form-add-article textarea {
   border: 1px solid red;
   height: 250px;
+  width: 100%;
+}
+.form-add-article input {
+  width: 100%;
 }
 
 /* profil */

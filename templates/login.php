@@ -49,8 +49,8 @@ require_once '../core/includes/header.php';
 
 <main>
     <form action="" method="post" class="form-register">
-        <input type="text" name="email" placeholder="Email ou Pseudo*" require>
-        <input type="password" name="password" placeholder="Mot de passe *" require>
+        <input type="text" name="email" placeholder="Email ou Pseudo*" required>
+        <input type="password" name="password" placeholder="Mot de passe *" required>
         <div class="g-recaptcha" data-sitekey="6LeMHRElAAAAACgEgUGBNqALUexnqykdbjJq7z-O"></div>
         <button>Connexion</button>
     </form>

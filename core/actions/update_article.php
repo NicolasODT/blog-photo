@@ -9,8 +9,23 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         $contenu = htmlspecialchars($_POST['contenu']);
         $slug = htmlspecialchars($_POST['slug']);
 
-        $sql = "UPDATE Article SET titre = :titre, contenu = :contenu, slug = :slug WHERE id = :id";
-        $query = $bdd->prepare($sql);
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+            $image = $_FILES['image'];
+            $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
+            $filename = uniqid() . '.' . $extension;
+            move_uploaded_file($image['tmp_name'], '../../public/media/' . $filename);
+        
+            $imagePath = '../../public/media/' . $filename;
+        
+            $sql = "UPDATE Article SET titre = :titre, contenu = :contenu, slug = :slug, image = :image WHERE id = :id";
+            $query = $bdd->prepare($sql);
+            $query->bindParam(":image", $imagePath);
+        } else {
+            $sql = "UPDATE Article SET titre = :titre, contenu = :contenu, slug = :slug WHERE id = :id";
+            $query = $bdd->prepare($sql);
+        }
+        
+
         $query->bindParam(":id", $id);
         $query->bindParam(":titre", $titre);
         $query->bindParam(":contenu", $contenu);
@@ -27,3 +42,4 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
     header("Location: ../../index.php");
     exit();
 }
+?>
