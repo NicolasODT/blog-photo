@@ -13,6 +13,13 @@ $stmt = $bdd->prepare($query);
 $stmt->execute([$_SESSION['id']]);
 $utilisateur = $stmt->fetch();
 
+// Récupère les commentaires de l'utilisateur
+$sql = "SELECT c.*, a.titre AS article_titre, a.image AS article_image FROM Commentaire c JOIN Article a ON c.id_article = a.id WHERE c.id_utilisateur = :id_utilisateur ORDER BY c.date_creation DESC";
+$stmt = $bdd->prepare($sql);
+$stmt->bindParam(":id_utilisateur", $_SESSION['id']);
+$stmt->execute();
+$commentaires = $stmt->fetchAll();
+
 // Met à jour les informations de l'utilisateur
 if (isset($_POST['submit'])) {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -31,11 +38,10 @@ require_once '../core/includes/header.php';
 
 ?>
 
-<body>
     <h1>Profil de <?= $utilisateur['pseudo'] ?></h1>
     <form action="" method="post" class="form-profil">
         <label for="E-mail">E-mail</label>
-        <input type="email" name="email" id="email" value="<?=$utilisateur['email']?>"disabled>
+        <input type="email" name="email" id="email" value="<?=$utilisateur['email']?>" disabled>
         <label for="password">Nouveau mot de passe:</label>
         <input type="password" name="password" id="password" placeholder="*********" required>
         <label for="pseudo">Pseudo</label>
@@ -46,5 +52,26 @@ require_once '../core/includes/header.php';
         <input type="text" name="pays" id="pays" value="<?= $utilisateur['pays'] ?>">
         <button name="submit">Enregistrer</button>
     </form>
+    <section class="commentaires">
+    <h2>Vos commentaires</h2>
+    <?php
+    if (count($commentaires) > 0) {
+        foreach ($commentaires as $commentaire) {
+    ?>
+            <div class="commentaire">
+                <h3>Article : <?= $commentaire["article_titre"] ?></h3>
+                <img src="<?= $commentaire["article_image"] ?>" alt="<?= $commentaire["article_titre"] ?>" style="width: 100px; height: auto;">
+                <p><?= $commentaire["message"] ?></p>
+                <p class="date"><?= $commentaire["date_creation"] ?></p>
+            </div>
+    <?php
+        }
+    } else {
+        echo "Aucun commentaire trouvé.";
+    }
+    ?>
+</section>
     <?php
     require_once '../core/includes/footer.php';
+    ?>
+
