@@ -7,10 +7,10 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $password = trim($_POST['password']);
 
 
-    require_once "connect.php";
+    require_once "../core/includes/connect.php";
 
 
-    $sql = "SELECT * FROM utilisateur WHERE email LIKE :email;";
+    $sql = "SELECT * FROM utilisateur WHERE email LIKE :email OR pseudo LIKE :email;";
 
     $query = $bdd->prepare($sql);
     $query->bindParam(":email", $email, PDO::PARAM_STR);
@@ -19,14 +19,14 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     if ($results) {
         if (password_verify($password, $results['hash'])) {
             if (!$results['actif']) {
-                header("Location: deactived.php");
+                header("Location: ../core/actions/deactived.php");
                 exit();
             }
             $_SESSION['email'] = $email;
             $_SESSION['role'] = $results['role'];
             $_SESSION['id'] = $results['id'];
             $_SESSION['pseudo'] = $results['pseudo'];
-            header('location: /index.php');
+            header('location: ../index.php');
         } else {
             echo 'Mot de passe incorrect';
         }
@@ -35,18 +35,18 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     }
 } else {
 }
-require_once 'header.php';
+require_once '../core/includes/header.php';
 ?>
 
 <main>
     <form action="" method="post" class="form-register">
-        <input type="email" name="email" placeholder="Email *" require>
+        <input type="text" name="email" placeholder="Email ou Pseudo*" require>
         <input type="password" name="password" placeholder="Mot de passe *" require>
         <button>Connexion</button>
     </form>
 </main>
 <?php
 
-require_once 'footer.php';
+require_once '../core/includes/footer.php';
 
 ?>

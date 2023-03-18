@@ -2,10 +2,13 @@
 
 body {
   font-family: roboto;
+  max-width: 1440px;
+  margin: auto;
+  box-shadow: 0px 0px 20px -15px #000000;
 }
 
 .imgLogoFond {
-  background-image: url('/media/movie-297239.png');
+  background-image: url("/media/movie-297239.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -59,7 +62,7 @@ ul li a:hover {
 form {
   border: 4px solid #a44200;
   border-radius: 10px;
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   margin: 50px auto;
@@ -67,7 +70,6 @@ form {
 
 form input {
   height: 65px;
-  width: 74%;
   outline: none;
   font-size: 30px;
 }
@@ -106,7 +108,7 @@ form button {
   font-size: 26px;
 }
 
-.card-article-text a{
+.card-article-text a {
   text-decoration: none;
   color: #a44200;
   font-size: 30px;
@@ -129,6 +131,10 @@ form button {
 }
 
 /* page articles */
+
+.message-article {
+  white-space: pre-line;
+}
 
 .main-article {
   width: 90%;
@@ -165,17 +171,19 @@ form button {
   width: 45%;
   height: 450px;
   padding: 30px;
+  gap: 20px;
   background-color: #d58936;
   border: none;
   border-bottom: #a44200 8px solid;
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.25));
 }
 
-.form-register input, button{
+.form-register input,
+button {
   border-radius: 10px;
 }
 
-.form-register input{
+.form-register input {
   padding-left: 15px;
 }
 
@@ -183,7 +191,23 @@ form button {
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.25));
   transition: 0.5s;
 }
+/* add-article */
+.form-add-article {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+.form-add-article textarea {
+  border: 1px solid red;
+  height: 250px;
+}
+
+/* profil */
+.form-profil {
+  display: flex;
+  flex-direction: column;
+}
 
 /* footer */
 

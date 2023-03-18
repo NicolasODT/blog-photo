@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require_once 'header.php';
+require_once './core/includes/header.php';
 
 ?>
 
 <main>
     <div class="logotext">
-        <img src="./media/FOCALE_CREATIVE.jpg" alt="">
+        <img src="./public/media/FOCALE_CREATIVE.jpg" alt="">
         <h1>FOCALE CREATIVE</h1>
     </div>
     <form action="" method="get">
@@ -17,7 +17,7 @@ require_once 'header.php';
 
     <div class="flex-card">
         <?php
-        require_once 'connect.php';
+        require_once './core/includes/connect.php';
         if (isset($_GET['search'])) {
             $search = $_GET['search'];
             $sql = "SELECT a.*, u.pseudo FROM Article a JOIN Utilisateur u ON a.id_utilisateur = u.id WHERE a.titre LIKE '%$search%' OR u.pseudo LIKE '%$search%' ORDER BY a.date_creation DESC LIMIT 10";
@@ -37,10 +37,10 @@ require_once 'header.php';
                     <div class="card-article-text">
                         <h2><?= $row["titre"]; ?></h2>
                         <p><?= substr($row["contenu"], 0, 50); ?>...</p>
-                            <p><?= $row["pseudo"] ?? ""; ?></p>
-                            <p><a href="./article.php?slug=<?= $row["slug"] ?>">Lien vers l'article</a></p>
-                        </div>
+                        <p><?= $row["pseudo"] ?? ""; ?></p>
+                        <p><a href="./templates/article.php?slug=<?= $row["slug"] ?>">Lien vers l'article</a></p>
                     </div>
+                </div>
         <?php
             }
         } else {
@@ -51,5 +51,6 @@ require_once 'header.php';
 </main>
 
 <?php
-require_once 'footer.php';
+require_once './core/includes/footer.php';
+
 ?>

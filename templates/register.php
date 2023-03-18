@@ -11,18 +11,18 @@ if (
     if ($_POST["password"] == $_POST["password2"]) {
 
 
-        $email = trim($_POST["email"]);
-        $password = trim($_POST["password"]);
+        $email = htmlspecialchars(trim($_POST["email"]));
+        $password = htmlspecialchars(trim($_POST["password"]));
         $options = [
             'cost' => 12,
         ];
         $password = password_hash($_POST["password"], PASSWORD_BCRYPT, $options);
-        $pseudo = trim(isset($_POST["pseudo"]) ? $_POST["pseudo"] : "");
-        $ville = trim(isset($_POST["ville"]) ? $_POST["ville"] : "");
-        $pays = trim(isset($_POST["pays"]) ? $_POST["pays"] : "");
+        $pseudo = htmlspecialchars(trim(isset($_POST["pseudo"]) ? $_POST["pseudo"] : ""));
+        $ville = htmlspecialchars(trim(isset($_POST["ville"]) ? $_POST["ville"] : ""));
+        $pays = htmlspecialchars(trim(isset($_POST["pays"]) ? $_POST["pays"] : ""));
 
         //connexion DB
-        require_once "connect.php";
+        require_once "../core/includes/connect.php";
 
         $sql = "INSERT INTO utilisateur (email, hash, pseudo, ville, pays) VALUES (:email,
         :password, :pseudo, :ville, :pays);";
@@ -36,7 +36,7 @@ if (
 
         if ($query->execute()) {
             echo "<p>Le compte a bien été créé</p>";
-            header('location: /index.php');
+            header('location: ../index.php');
         } else {
             echo "<p>Une erreur s'est produite</p>";
         }
@@ -44,7 +44,7 @@ if (
         echo "<p>mots de passe différents</p>";
     }
 }
-require_once 'header.php';
+require_once '../core/includes/header.php';
 ?>
 
 <main>
@@ -62,6 +62,6 @@ require_once 'header.php';
 
 <?php
 
-require_once 'footer.php';
+require_once '../core/includes/footer.php';
 
 ?>

@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'connect.php';
+require_once '../core/includes/connect.php';
 
 
 if ($_SESSION["role"] != "admin") {
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 
 // Récupère la liste des utilisateurs
@@ -18,7 +18,7 @@ if (isset($_GET['search'])) {
     $stmt = $bdd->query($query);
     $utilisateurs = $stmt->fetchAll();
 }
-require_once 'header.php';
+require_once '../core/includes/header.php';
 ?>
 
 
@@ -49,7 +49,7 @@ require_once 'header.php';
                     <td><?= $utilisateur['role'] ?></td>
                     <td><?= $utilisateur['actif'] ? 'Oui' : 'Non' ?></td>
                     <td>
-                        <form action="modifier_utilisateur.php" method="post">
+                        <form action="../core/actions/modifier_utilisateur.php" method="post">
                             <input type="hidden" name="id" value="<?= $utilisateur['id'] ?>">
                             <select name="role">
                                 <option value="utilisateur" <?= $utilisateur['role'] == 'utilisateur' ? 'selected' : '' ?>>Utilisateur</option>
@@ -58,7 +58,7 @@ require_once 'header.php';
                             </select>
                             <button>Modifier le rôle</button>
                         </form>
-                        <form action="desactiver_utilisateur.php" method="post">
+                        <form action="../core/actions/desactiver_utilisateur.php" method="post">
                             <input type="hidden" name="id" value="<?= $utilisateur['id'] ?>">
                             <input type="hidden" name="actif" value="<?= $utilisateur['actif'] ? 0 : 1 ?>">
                             <button><?= $utilisateur['actif'] ? 'Désactiver' : 'Activer' ?></button>
@@ -69,6 +69,5 @@ require_once 'header.php';
         </tbody>
     </table>
 
-</body>
-
-</html>
+    <?php
+    require_once '../core/includes/footer.php';
