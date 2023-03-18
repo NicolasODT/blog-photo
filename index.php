@@ -2,7 +2,6 @@
 session_start();
 
 require_once './core/includes/header.php';
-
 ?>
 
 <main>
@@ -18,11 +17,16 @@ require_once './core/includes/header.php';
     <div class="flex-card">
         <?php
         require_once './core/includes/connect.php';
+
+        $limit = 10;
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
+        $offset = ($page - 1) * $limit;
+
         if (isset($_GET['search'])) {
             $search = $_GET['search'];
-            $sql = "SELECT a.*, u.pseudo FROM Article a JOIN Utilisateur u ON a.id_utilisateur = u.id WHERE a.titre LIKE '%$search%' OR u.pseudo LIKE '%$search%' ORDER BY a.date_creation DESC LIMIT 10";
+            $sql = "SELECT a.*, u.pseudo FROM Article a JOIN Utilisateur u ON a.id_utilisateur = u.id WHERE a.titre LIKE '%$search%' OR u.pseudo LIKE '%$search%' ORDER BY a.date_creation DESC LIMIT $limit OFFSET $offset";
         } else {
-            $sql = "SELECT a.*, u.pseudo FROM Article a JOIN Utilisateur u ON a.id_utilisateur = u.id ORDER BY a.date_creation DESC LIMIT 10";
+            $sql = "SELECT a.*, u.pseudo FROM Article a JOIN Utilisateur u ON a.id_utilisateur = u.id ORDER BY a.date_creation DESC LIMIT $limit OFFSET $offset";
         }
 
         $stmt = $bdd->prepare($sql);
@@ -48,9 +52,18 @@ require_once './core/includes/header.php';
         }
         ?>
     </div>
+
+    <?php
+    $search_query = isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '';
+    ?>
+    <div class="pagination">
+        <?php if ($page > 1): ?>
+            <a href="?page=<?= $page - 1 . $search_query ?>" class="pagination-prev"> précédents</a>
+        <?php endif; ?>
+        <a href="?page=<?= $page + 1 . $search_query ?>" class="pagination-next"> suivants</a>
+    </div>
 </main>
 
 <?php
 require_once './core/includes/footer.php';
-
 ?>

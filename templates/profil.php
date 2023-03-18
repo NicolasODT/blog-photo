@@ -37,7 +37,7 @@ require_once '../core/includes/header.php';
         <label for="E-mail">E-mail</label>
         <input type="email" name="email" id="email" value="<?=$utilisateur['email']?>"disabled>
         <label for="password">Nouveau mot de passe:</label>
-        <input type="password" name="password" id="password" value="*************"required>
+        <input type="password" name="password" id="password" placeholder="*********" required>
         <label for="pseudo">Pseudo</label>
         <input type="pseudo" name="pseudo" id="pseudo" value="<?=$utilisateur['pseudo']?>" disabled>
         <label for="ville">Ville:</label>
