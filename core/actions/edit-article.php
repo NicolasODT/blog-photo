@@ -11,7 +11,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         $article = $query->fetch();
         if ($article) {
             $titre = htmlspecialchars($article['titre']);
-            $contenu = htmlspecialchars($article['contenu']);
+            $contenu = $article['contenu'];
             $slug = htmlspecialchars($article['slug']);
             $image = htmlspecialchars($article['image']);
         } else {
@@ -38,7 +38,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         </div>
         <div>
             <label for="contenu">Contenu :</label>
-            <textarea name="contenu" id="contenu" rows="10"><?= $contenu ?></textarea>
+            <textarea name="contenu" id="story" rows="10"><?= $contenu ?></textarea>
         </div>
         <div>
             <label for="slug">Slug :</label>

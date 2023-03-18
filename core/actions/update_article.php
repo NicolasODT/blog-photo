@@ -6,7 +6,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         require_once '../includes/connect.php';
         $id = $_POST['id'];
         $titre = htmlspecialchars($_POST['titre']);
-        $contenu = htmlspecialchars($_POST['contenu']);
+        $contenu = $_POST['contenu'];
         $slug = htmlspecialchars($_POST['slug']);
 
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {

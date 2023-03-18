@@ -40,7 +40,7 @@ require_once './core/includes/header.php';
                     <img src="<?= $row["image"] ?>" alt="">
                     <div class="card-article-text">
                         <h2><?= $row["titre"]; ?></h2>
-                        <p><?= substr($row["contenu"], 0, 50); ?>...</p>
+                        <p><?= strip_tags(substr($row["contenu"], 0, 50)); ?>...</p>
                         <p><?= $row["pseudo"] ?? ""; ?></p>
                         <p><a href="./templates/article.php?slug=<?= $row["slug"] ?>">Lien vers l'article</a></p>
                     </div>
