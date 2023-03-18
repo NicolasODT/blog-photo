@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../public/css/reset.css">
     <link rel="stylesheet" href="../../public/css/style.css">
     <script src="https://cdn.tiny.cloud/1/20t4psha1silm1bfotmbo9ywlhqxr8z9w4uh90aqf099bu65/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="../../public/js/app.js" defer></script>
 </head>
 
 <body class="imgLogoFond">

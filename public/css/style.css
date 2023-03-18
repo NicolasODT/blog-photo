@@ -206,6 +206,15 @@ button {
 .form-add-article input {
   width: 100%;
 }
+#image-preview {
+  max-width: 250px;
+  height: auto;
+  display: none;
+}
+#image-preview2 {
+  max-width: 250px;
+  height: auto;
+}
 
 /* profil */
 .form-profil {
