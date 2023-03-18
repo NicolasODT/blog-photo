@@ -8,7 +8,7 @@ body {
 }
 
 .imgLogoFond {
-  background-image: url("/media/movie-297239.png");
+  background-image: url("../media/movie-297239.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
