@@ -46,7 +46,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         </div>
         <div>
             <label for="image">Image :</label>
-            <input type="file" name="file" onchange="previewImage()">
+            <input type="file" name="file" id="fileInput">
             <img src="<?= $image ?>" id="image-preview2" alt="Image actuelle">
             <img id="image-preview" src="" alt="Image preview">
         </div>

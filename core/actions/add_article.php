@@ -66,7 +66,7 @@ require_once '../includes/header.php';
 <form action="" method="post" enctype="multipart/form-data" class="form-add-article">
     <input type="text" name="titre" id="" placeholder="Titre de l'article">
     <textarea placeholder="Entrez votre article ici..." id="story" name="story"></textarea>
-    <input type="file" name="file" onchange="previewImage()">
+    <input type="file" name="file" id="fileInput">
     <img id="image-preview" src="" alt="Image preview">
     <button>Envoyer</button>
 </form>

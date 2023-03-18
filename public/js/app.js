@@ -20,3 +20,8 @@ function previewImage() {
     preview.style.display = "none";
   }
 }
+
+const fileInput = document.getElementById("fileInput");
+if (fileInput) {
+  fileInput.addEventListener("change", previewImage);
+}
