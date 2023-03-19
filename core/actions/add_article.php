@@ -64,7 +64,7 @@ if (
 require_once '../includes/header.php';
 ?>
 <form action="" method="post" enctype="multipart/form-data" class="form-add-article">
-    <input type="text" name="titre" id="" placeholder="Titre de l'article">
+    <input type="text" name="titre" id="" placeholder="Titre de l'article" required>
     <textarea placeholder="Entrez votre article ici..." id="story" name="story"></textarea>
     <input type="file" name="file" id="fileInput">
     <img id="image-preview" src="" alt="Image preview">

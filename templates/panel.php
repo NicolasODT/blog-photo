@@ -3,6 +3,7 @@ session_start();
 require_once '../core/includes/connect.php';
 
 
+// Vérifie si l'utilisateur est un admin
 if ($_SESSION["role"] != "admin") {
     header("Location: ../index.php");
 }
@@ -12,6 +13,7 @@ $query = "SELECT id, pseudo, email, role, actif FROM Utilisateur";
 $stmt = $bdd->query($query);
 $utilisateurs = $stmt->fetchAll();
 
+// Recherche des utilisateurs en fonction d'une chaîne de caractères
 if (isset($_GET['search'])) {
     $search = $_GET['search'];
     $query = "SELECT id, pseudo, email, role, actif FROM Utilisateur WHERE pseudo LIKE '%$search%' OR email LIKE '%$search%'";
@@ -49,6 +51,7 @@ require_once '../core/includes/header.php';
                     <td><?= $utilisateur['role'] ?></td>
                     <td><?= $utilisateur['actif'] ? 'Oui' : 'Non' ?></td>
                     <td>
+                        <!-- Formulaire de modification du rôle -->
                         <form action="../core/actions/modifier_utilisateur.php" method="post">
                             <input type="hidden" name="id" value="<?= $utilisateur['id'] ?>">
                             <select name="role">
@@ -58,6 +61,7 @@ require_once '../core/includes/header.php';
                             </select>
                             <button>Modifier le rôle</button>
                         </form>
+                        <!-- Formulaire d'activation/désactivation -->
                         <form action="../core/actions/desactiver_utilisateur.php" method="post">
                             <input type="hidden" name="id" value="<?= $utilisateur['id'] ?>">
                             <input type="hidden" name="actif" value="<?= $utilisateur['actif'] ? 0 : 1 ?>">

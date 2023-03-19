@@ -1,26 +1,29 @@
 <?php
 session_start();
 
+// Vérification que les champs requis ont été remplis
 if (
     isset($_POST["email"]) && $_POST["email"] != ""
     && isset($_POST["password"]) && $_POST["password"] != ""
     && isset($_POST["password2"]) && $_POST["password2"] != ""
 ) {
 
-
+    // Vérification que les deux mots de passe correspondent
     if ($_POST["password"] == $_POST["password2"]) {
-
+        
+        // Validation de l'adresse email
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             echo "<p>Adresse email invalide</p>";
             exit();
         }
 
+        // Vérification que le mot de passe est suffisamment long
         if (strlen($_POST["password"]) < 8) {
             echo "<p>Le mot de passe doit contenir au moins 8 caractères</p>";
             exit();
         }
 
-
+        // Nettoyage des données
         $email = htmlspecialchars(trim($_POST["email"]));
         $password = htmlspecialchars(trim($_POST["password"]));
         $options = [
@@ -31,9 +34,9 @@ if (
         $ville = htmlspecialchars(trim(isset($_POST["ville"]) ? $_POST["ville"] : ""));
         $pays = htmlspecialchars(trim(isset($_POST["pays"]) ? $_POST["pays"] : ""));
 
-        //connexion DB
         require_once "../core/includes/connect.php";
 
+        // Construction de la requête SQL d'insertion
         $sql = "INSERT INTO utilisateur (email, hash, pseudo, ville, pays) VALUES (:email,
         :password, :pseudo, :ville, :pays);";
 

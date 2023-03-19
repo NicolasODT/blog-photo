@@ -5,6 +5,7 @@ if (isset($_GET["slug"])) {
 
     $slug = $_GET["slug"];
 
+    // Recherche l'article correspondant au slug dans la base de données
     $sql = "SELECT a.*, u.pseudo FROM Article a JOIN Utilisateur u ON a.id_utilisateur = u.id WHERE a.slug = :slug";
     $query = $bdd->prepare($sql);
     $query->bindParam(":slug", $slug);
@@ -21,6 +22,7 @@ if (isset($_GET["slug"])) {
             <p class="message-article"><?= $article["contenu"] ?></p>
 
             <?php if (isset($_SESSION["id"])) { ?>
+                <!-- Formulaire pour ajouter un commentaire -->
                 <form method="post" action="../core/actions/add_comment.php?slug=<?= $slug ?>">
                     <label for="message">Laissez un commentaire :</label>
                     <textarea name="message" id="message" rows="4" cols="50"></textarea>
@@ -32,6 +34,7 @@ if (isset($_GET["slug"])) {
             <section class="commentaires">
                 <h3>Commentaires</h3>
                 <?php
+                // Récupère les commentaires de l'article depuis la base de données
                 $sql = "SELECT c.*, u.pseudo FROM Commentaire c JOIN Utilisateur u ON c.id_utilisateur = u.id WHERE c.id_article = :id_article ORDER BY c.date_creation DESC";
                 $query = $bdd->prepare($sql);
                 $query->bindParam(":id_article", $article["id"]);
@@ -39,6 +42,7 @@ if (isset($_GET["slug"])) {
                 $commentaires = $query->fetchAll();
 
                 if (count($commentaires) > 0) {
+                    // Affiche chaque commentaire
                     foreach ($commentaires as $commentaire) {
                 ?>
                         <div class="commentaire">
@@ -55,6 +59,7 @@ if (isset($_GET["slug"])) {
             </section>
 
             <?php if (isset($_SESSION["id"]) && ($_SESSION["role"] == "editeur" || $_SESSION["role"] == "admin")) { ?>
+                <!-- Lien pour éditer l'article si l'utilisateur est un éditeur ou un administrateur -->
                 <div class="edit-link">
                     <a href="../core/actions/edit-article.php?id_article=<?= $article['id'] ?>">Editer</a>
                 </div>

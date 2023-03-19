@@ -14,9 +14,9 @@ $stmt->execute([$_SESSION['id']]);
 $utilisateur = $stmt->fetch();
 
 // Récupère les commentaires de l'utilisateur
-$limit = 4;
+$limit = 4; // Nombre de commentaires par page
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? intval($_GET['page']) : 1;
-$offset = ($page - 1) * $limit;
+$offset = ($page - 1) * $limit; // Calcul de l'offset
 
 $sql = "SELECT c.*, a.titre AS article_titre, a.image AS article_image FROM Commentaire c JOIN Article a ON c.id_article = a.id WHERE c.id_utilisateur = :id_utilisateur ORDER BY c.date_creation DESC LIMIT :limit OFFSET :offset";
 $stmt = $bdd->prepare($sql);
@@ -61,7 +61,9 @@ require_once '../core/includes/header.php';
 <section class="commentaires">
     <h2>Vos commentaires</h2>
     <?php
+    // Vérifie s'il y a des commentaires à afficher
     if (count($commentaires) > 0) {
+        // Affiche chaque commentaire récupéré de la base de données
         foreach ($commentaires as $commentaire) {
     ?>
             <div class="commentaire">

@@ -1,7 +1,10 @@
 <?php
 session_start();
 
+// Vérifie si les informations de connexion ont été envoyées par le formulaire
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST['g-recaptcha-response'])) {
+
+    // Vérifie le recaptcha
     $recaptchaResponse = $_POST['g-recaptcha-response'];
 
     $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
@@ -10,24 +13,30 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST['g-recap
     $recaptcha = file_get_contents($recaptchaUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
     $recaptcha = json_decode($recaptcha);
 
+    // Si le recaptcha est validé
     if ($recaptcha->success) {
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
         require_once "../core/includes/connect.php";
 
-        $sql = "SELECT * FROM utilisateur WHERE email LIKE :email OR pseudo LIKE :email;";
 
+        // Requête pour récupérer les informations de l'utilisateur
+        $sql = "SELECT * FROM utilisateur WHERE email LIKE :email OR pseudo LIKE :email;";
         $query = $bdd->prepare($sql);
         $query->bindParam(":email", $email, PDO::PARAM_STR);
         $query->execute();
         $results = $query->fetch();
+        // Si l'utilisateur existe dans la base de données
         if ($results) {
+            // Vérifie le mot de passe
             if (password_verify($password, $results['hash'])) {
+                // Vérifie si le compte est actif
                 if (!$results['actif']) {
                     header("Location: ../core/actions/deactived.php");
                     exit();
                 }
+                // Stocke les informations de l'utilisateur en session
                 $_SESSION['email'] = $email;
                 $_SESSION['role'] = $results['role'];
                 $_SESSION['id'] = $results['id'];

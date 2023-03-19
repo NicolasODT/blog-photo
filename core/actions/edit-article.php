@@ -1,15 +1,20 @@
 <?php
 session_start();
 if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role'] == 'admin')) {
+
+    // Vérifie si l'identifiant de l'article est défini
     if (isset($_GET['id_article'])) {
         require_once '../includes/connect.php';
         $id = $_GET['id_article'];
+
+        // Récupère les données de l'article à éditer
         $sql = "SELECT * FROM Article WHERE id = :id";
         $query = $bdd->prepare($sql);
         $query->bindParam(":id", $id);
         $query->execute();
         $article = $query->fetch();
         if ($article) {
+            // Stocke les données de l'article dans des variables
             $titre = htmlspecialchars($article['titre']);
             $contenu = $article['contenu'];
             $slug = htmlspecialchars($article['slug']);
@@ -23,6 +28,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role
         exit();
     }
 } else {
+    // Redirige l'utilisateur si l'utilisateur n'est pas autorisé à accéder à cette page
     header("Location: ../../index.php");
     exit();
 }
