@@ -41,3 +41,20 @@ tinymce.init({
     { value: "Email", title: "Email" },
   ],
 });
+
+/* delete article */
+
+const deleteBtn = document.getElementById("delete-btn");
+
+deleteBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const confirmationMessage =
+    "Êtes-vous sûr de vouloir supprimer cet article ?";
+
+  const userConfirmation = confirm(confirmationMessage);
+
+  if (userConfirmation) {
+    document.getElementById("delete-form").submit();
+  }
+});

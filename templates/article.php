@@ -62,8 +62,12 @@ if (isset($_GET["slug"])) {
                 <!-- Lien pour éditer l'article si l'utilisateur est un éditeur ou un administrateur -->
                 <div class="edit-link">
                     <a href="../core/actions/edit-article.php?id_article=<?= $article['id'] ?>">Editer</a>
+                    <form id="delete-form" method="post" action="../core/actions/delete_article.php">
+                        <input type="hidden" name="id_article" value="<?= $article["id"] ?>">
+                        <button id="delete-btn">Supprimer</button>
+                    </form>
                 </div>
-            <?php } ?>
+            <?php } ?>  
         </main>
 
 <?php
